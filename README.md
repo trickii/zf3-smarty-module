@@ -30,6 +30,50 @@ return [
   ],
 ];
 ```
+# Template Inheritance
+In order for template inheritance to work, you must terminate your ViewModel inside your Controller with `$viewModel->setTerminal(true);` and make use of the smarty `{extends}` tag. Otherwise the ViewModel will render the default layout template and inheritance won't work.
+
+### Example
+
+layout.tpl
+```html
+<html>
+<head>
+  <title>{block 'title'}Page name{/block}</title>
+</head>
+<body>
+  {block 'content'}{/block}
+</body>
+</html>
+```
+index.tpl
+```html
+{extends 'layout.tpl'}
+{block 'title' append} - Index{/block}
+{block 'content'}This is the inde template{/block}
+```
+Controller
+```php
+public function indexAction()
+{
+    $viewModel = new ViewModel();
+    $viewModel->setTerminal(true);
+    return $viewModel;
+}
+```
+
+will result in
+```html
+<html>
+<head>
+  <title>Page name - Index</title>
+</head>
+<body>
+  This is the inde template
+</body>
+</html>
+```
+
 # Requirements
 The composer module currently requires:
 ```json
