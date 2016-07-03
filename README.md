@@ -32,5 +32,9 @@ return [
 ```
 # Requirements
 The composer module currently requires:
-- "smarty/smarty": "^3.1.29"
-- "zendframework/zendframework": "^3.0.0"
+```json
+"require": {
+  "smarty/smarty": "^3.1.29",
+  "zendframework/zendframework": "^3.0.0"
+}
+```
