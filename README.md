@@ -35,7 +35,7 @@ The composer module currently requires:
 ```json
 "require": {
   "php":                                ">5.4",
-  "smarty/smarty"                       "~3.1.29",
+  "smarty/smarty":                      "~3.1.29",
   "zendframework/zend-stdlib":          "~3.0.1",
   "zendframework/zend-mvc":             "~3.0.1",
   "zendframework/zend-servicemanager":  "~3.1",
