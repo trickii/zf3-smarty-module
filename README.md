@@ -16,7 +16,7 @@ return [
   ],
 ];
 ```
-- you might also want to change your View Manager's Template Map to actually use .tpl files instead of the default .phtml
+you might also want to change your View Manager's Template Map to actually use .tpl files instead of the default .phtml
 ```php
 <?php
 return [
@@ -50,7 +50,7 @@ index.tpl
 ```html
 {extends 'layout.tpl'}
 {block 'title' append} - Index{/block}
-{block 'content'}This is the inde template{/block}
+{block 'content'}This is the index template{/block}
 ```
 Controller
 ```php
@@ -69,7 +69,7 @@ will result in
   <title>Page name - Index</title>
 </head>
 <body>
-  This is the inde template
+  This is the index template
 </body>
 </html>
 ```
