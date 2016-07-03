@@ -34,7 +34,11 @@ return [
 The composer module currently requires:
 ```json
 "require": {
-  "smarty/smarty": "^3.1.29",
-  "zendframework/zendframework": "^3.0.0"
-}
+  "php":                                ">5.4",
+  "smarty/smarty"                       "~3.1.29",
+  "zendframework/zend-stdlib":          "~3.0.1",
+  "zendframework/zend-mvc":             "~3.0.1",
+  "zendframework/zend-servicemanager":  "~3.1",
+  "zendframework/zend-modulemanager":   "~2.7.1"
+},
 ```
