@@ -23,9 +23,10 @@ class RendererFactory implements FactoryInterface
 		$engine = new \Smarty();
 		$engine->setCompileDir($config['compile_dir']);
 		$engine->setEscapeHtml($config['escape_html']);
-        $engine->setTemplateDir($pathResolver->getPaths()->toArray());
-        $engine->setCaching($config['caching']);
-        $engine->setCacheDir($config['cache_dir']);
+		$engine->setTemplateDir($pathResolver->getPaths()->toArray());
+		$engine->setCaching($config['caching']);
+		$engine->setCacheDir($config['cache_dir']);
+		$engine->addPluginsDir($config['plugins_dir']);
 
 		if (file_exists($config['config_file'])) {
 			$engine->configLoad($config['config_file']);
