@@ -1,16 +1,21 @@
 <?php
 namespace Smarty;
 
+use Smarty\View\Strategy;
+use Smarty\Service\StrategyFactory;
+use Smarty\View\Renderer;
+use Smarty\Service\RendererFactory;
+
 return [
     'view_manager' => [
         'strategies' => [
-            'Smarty\View\Strategy',
+            Strategy::class,
         ],
     ],
     'service_manager' => [
         'factories' => [
-            'Smarty\View\Strategy' => 'Smarty\Service\StrategyFactory',
-            'Smarty\View\Renderer' => 'Smarty\Service\RendererFactory',
+            Strategy::class => StrategyFactory::class,
+            Renderer::class => RendererFactory::class,
         ],
     ],
     'smarty' => [
