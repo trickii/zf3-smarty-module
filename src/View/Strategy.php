@@ -4,6 +4,7 @@ namespace Smarty\View;
 use Zend\EventManager\ListenerAggregateInterface;
 use Zend\EventManager\EventManagerInterface;
 use Zend\View\ViewEvent;
+use Smarty\View\Renderer;
 
 class Strategy implements ListenerAggregateInterface
 {
@@ -12,7 +13,7 @@ class Strategy implements ListenerAggregateInterface
      */
     protected $listeners = [];
     /**
-     * @var \Smarty\View\Renderer
+     * @var Renderer
      */
     protected $renderer;
 

@@ -5,15 +5,17 @@ use Zend\View\Renderer\RendererInterface;
 use Zend\View\Resolver\ResolverInterface;
 use Zend\View\Model\ModelInterface;
 use Zend\View\Exception\DomainException;
+use Smarty;
+use ArrayObject;
 
 class Renderer implements RendererInterface
 {
     /**
-     * @var \Smarty
+     * @var Smarty
      */
     protected $engine;
     /**
-     * @var \Zend\View\Resolver\ResolverInterface
+     * @var ResolverInterface
      */
     protected $resolver;
     /**
@@ -22,7 +24,7 @@ class Renderer implements RendererInterface
      */
     protected $suffix;
 
-    public function setEngine(\Smarty $engine)
+    public function setEngine(Smarty $engine)
     {
         $this->engine = $engine;
         $this->engine->assign('this', $this);
@@ -59,7 +61,7 @@ class Renderer implements RendererInterface
             ));
         }
 
-        if ($values instanceof \ArrayObject) {
+        if ($values instanceof ArrayObject) {
             $values = $values->getArrayCopy();
         }
 
