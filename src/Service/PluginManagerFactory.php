@@ -11,6 +11,6 @@ class PluginManagerFactory implements FactoryInterface
     {
         $config = $container->get('Configuration');
         $config = $config['smarty']['plugins'];
-        return new PluginManager(new ServiceManager(), $config['manager']);
+        return new PluginManager($container, $config['manager']);
     }
 }

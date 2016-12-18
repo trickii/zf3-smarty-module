@@ -6,6 +6,8 @@ use Zend\ServiceManager\PluginManagerInterface;
 use Interop\Container\ContainerInterface;
 use Smarty;
 use Smarty\Service\PluginManager;
+use Smarty\Service\PluginProxy\IfBlockProxy;
+use Smarty\Service\PluginProxy\CycleBlockProxy;
 use Smarty\Exception\InvalidServiceException;
 use Smarty\Plugin\FunctionPluginInterface;
 use Smarty\Plugin\ModifierPluginInterface;
@@ -70,67 +72,46 @@ class PluginDelegator implements DelegatorFactoryInterface
                     is_object($plugin) ? get_class($plugin) : gettype($plugin)
                 ));
             }
-            $plugins[] = $plugin;
+            $plugins[$name] = $plugin;
         }
         return $plugins;
     }
 
     public function registerFunctionPlugins(array $plugins)
     {
-        foreach ($this->getPlugins($plugins, FunctionPluginInterface::class) as $plugin) {
+        foreach ($this->getPlugins($plugins, FunctionPluginInterface::class) as $name => $plugin) {
             $this->smarty->registerPlugin('function', $name, [$plugin, 'run']);
         }
     }
 
     public function registerModifierPlugins(array $plugins)
     {
-        foreach ($this->getPlugins($plugins, FunctionPluginInterface::class) as $plugin) {
+        foreach ($this->getPlugins($plugins, ModifierPluginInterface::class) as $name => $plugin) {
             $this->smarty->registerPlugin('modifier', $name, [$plugin, 'modify']);
         }
     }
 
     public function registerBlockPlugins(array $plugins)
     {
-        foreach ($this->getPlugins($plugins, FunctionPluginInterface::class) as $plugin) {
+        foreach ($this->getPlugins($plugins, BlockPluginInterface::class) as $name => $plugin) {
             $this->smarty->registerPlugin('block', $name, [$plugin, 'prepare']);
         }
     }
 
     public function registerIfBlockPlugins(array $plugins)
     {
-        foreach ($this->getPlugins($plugins, FunctionPluginInterface::class) as $plugin) {
-            $this->smarty->registerPlugin('block', $name, function(array $params, $content, $smarty, &$repeat) use($name, $plugin)
-            {
-                $trueFalseBlockContents = explode(sprintf('{%s_else}', $name), $content);
-                if (!isset($trueFalseBlockContents[1])) {
-                    $trueFalseBlockContents[1] = '';
-                }
-
-                if (!$pugin->checkCondition($params, $smarty)) {
-                    return $plugin->prepareFalse($trueFalseBlockContents[1]);
-                }
-
-                return $plugin->prepareTrue($trueFalseBlockContents[0]);
-            });
-            $this->smarty->registerPlugin('function', $name . '_else', function(array $params, $smarty) use($name)
-            {
-                return $smarty->left_delimiter . $name . '_else' . $smarty->right_delimiter;
-            });
+        foreach ($this->getPlugins($plugins, IfBlockPluginInterface::class) as $name => $plugin) {
+            $proxy = new IfBlockProxy($plugin, $name);
+            $this->smarty->registerPlugin('block', $name, [$proxy, '__invoke']);
+            $this->smarty->registerPlugin('function', $name, [$proxy, 'elseFunction']);
         }
     }
 
     public function registerCycleBlockPlugins(array $plugins)
     {
-        foreach ($this->getPlugins($plugins, CycleBlockInterface::class) as $plugin) {
-            $this->smarty->registerPlugin('block', $name, function(array $params, $content, $smarty, &$repeat) use($plugin)
-            {
-                if (!$plugin->isValid($params, $smarty)) {
-                    $repeat = false;
-                    return '';
-                }
-                $repeat = true;
-                return $plugin->prepare($params, $content, $smarty);
-            });
+        foreach ($this->getPlugins($plugins, CycleBlockInterface::class) as $name => $plugin) {
+            $proxy = new CycleBlockProxy($plugin);
+            $this->smarty->registerPlugin('block', $name, [$proxy, '__invoke']);
         }
     }
 }
