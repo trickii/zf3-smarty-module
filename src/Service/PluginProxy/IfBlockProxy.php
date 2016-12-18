@@ -32,7 +32,7 @@ class IfBlockProxy
             $trueFalseBlockContents[1] = '';
         }
 
-        if (!$this->pugin->checkCondition($params, $smarty)) {
+        if (!$this->plugin->checkCondition($params, $smarty)) {
             return $this->plugin->prepareFalse($trueFalseBlockContents[1]);
         }
 
