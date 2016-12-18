@@ -33,10 +33,10 @@ class IfBlockProxy
         }
 
         if (!$this->plugin->checkCondition($params, $smarty)) {
-            return $this->plugin->prepareFalse($trueFalseBlockContents[1]);
+            return $this->plugin->prepareFalse($params, $trueFalseBlockContents[1], $smarty);
         }
 
-        return $this->plugin->prepareTrue($trueFalseBlockContents[0]);
+        return $this->plugin->prepareTrue($params, $trueFalseBlockContents[0], $smarty);
     }
 
     public function elseFunction(array $params, $smarty)
