@@ -6,7 +6,7 @@ use Smarty;
 /**
  * Interface to detect if a class is Smarty CycleBlock plugin.
  */
-interface CycleBlockInterface extends PluginInterface
+interface CycleBlockPluginInterface extends PluginInterface
 {
     /**
      * @param array $params

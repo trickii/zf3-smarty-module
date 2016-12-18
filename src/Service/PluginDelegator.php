@@ -13,7 +13,7 @@ use Smarty\Plugin\FunctionPluginInterface;
 use Smarty\Plugin\ModifierPluginInterface;
 use Smarty\Plugin\BlockPluginInterface;
 use Smarty\Plugin\IfBlockPluginInterface;
-use Smarty\Plugin\CycleBlockInterface;
+use Smarty\Plugin\CycleBlockPluginInterface;
 
 /**
  * This delegator used for registration Object-plugins in Smarty.
@@ -109,7 +109,7 @@ class PluginDelegator implements DelegatorFactoryInterface
 
     public function registerCycleBlockPlugins(array $plugins)
     {
-        foreach ($this->getPlugins($plugins, CycleBlockInterface::class) as $name => $plugin) {
+        foreach ($this->getPlugins($plugins, CycleBlockPluginInterface::class) as $name => $plugin) {
             $proxy = new CycleBlockProxy($plugin);
             $this->smarty->registerPlugin('block', $name, [$proxy, '__invoke']);
         }

@@ -1,7 +1,7 @@
 <?php
 namespace Smarty\Service\PluginProxy;
 
-use Smarty\Plugin\CycleBlockInterface;
+use Smarty\Plugin\CycleBlockPluginInterface;
 
 class CycleBlockProxy
 {
@@ -13,7 +13,7 @@ class CycleBlockProxy
     /**
      * @param IfBlockPluginInterface $plugin
      */
-    public function __construct(IfBlockPluginInterface $plugin)
+    public function __construct(CycleBlockPluginInterface $plugin)
     {
         $this->plugin = $plugin;
     }
