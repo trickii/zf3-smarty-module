@@ -103,7 +103,7 @@ class PluginDelegator implements DelegatorFactoryInterface
         foreach ($this->getPlugins($plugins, IfBlockPluginInterface::class) as $name => $plugin) {
             $proxy = new IfBlockProxy($plugin, $name);
             $this->smarty->registerPlugin('block', $name, [$proxy, '__invoke']);
-            $this->smarty->registerPlugin('function', $name, [$proxy, 'elseFunction']);
+            $this->smarty->registerPlugin('function', $name . '_else', [$proxy, 'elseFunction']);
         }
     }
 
