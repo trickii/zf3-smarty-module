@@ -46,7 +46,7 @@ class PluginDelegator implements DelegatorFactoryInterface
         $this->registerModifierPlugins($pluginsConfig['modifiers']);
         $this->registerBlockPlugins($pluginsConfig['blocks']);
         $this->registerIfBlockPlugins($pluginsConfig['if_blocks']);
-        $this->registerIfBlockPlugins($pluginsConfig['cycle_blocks']);
+        $this->registerCycleBlockPlugins($pluginsConfig['cycle_blocks']);
 
         return $renderer;
     }
