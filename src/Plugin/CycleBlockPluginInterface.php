@@ -9,6 +9,8 @@ use Smarty;
 interface CycleBlockPluginInterface extends PluginInterface
 {
     /**
+     * Call before cycle.
+     *
      * @param array $params
      * @param Smarty $smarty
      *
@@ -17,6 +19,8 @@ interface CycleBlockPluginInterface extends PluginInterface
     public function init(array $params, $smarty);
 
     /**
+     * Call before iteration.
+     *
      * @param array $params
      * @param Smarty $smarty
      *
@@ -36,6 +40,8 @@ interface CycleBlockPluginInterface extends PluginInterface
     public function prepareIteration(array $params, $content, $smarty);
 
     /**
+     * Call after cycle.
+     *
      * @param array $params
      * @param Smarty $smarty
      *
