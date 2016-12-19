@@ -20,11 +20,14 @@ class CycleBlockProxy
 
     public function __invoke(array $params, $content, $smarty, &$repeat)
     {
+        if (is_null($content)) {
+            return $this->plugin->init($params, $smarty);
+        }
         if (!$this->plugin->isValid($params, $smarty)) {
             $repeat = false;
-            return '';
+            return $this->end($params, $smarty);
         }
         $repeat = true;
-        return $this->plugin->prepare($params, $content, $smarty);
+        return $this->plugin->prepareIteration($params, $content, $smarty);
     }
 }

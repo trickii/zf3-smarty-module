@@ -12,6 +12,14 @@ interface CycleBlockPluginInterface extends PluginInterface
      * @param array $params
      * @param Smarty $smarty
      *
+     * @return string|null
+     */
+    public function init(array $params, $smarty);
+
+    /**
+     * @param array $params
+     * @param Smarty $smarty
+     *
      * @return bool true - if the current iteration is valid.
      */
     public function isValid(array $params, $smarty);
@@ -25,5 +33,13 @@ interface CycleBlockPluginInterface extends PluginInterface
      *
      * @return string Content of the current iteration.
      */
-    public function prepare(array $params, $content, $smarty);
+    public function prepareIteration(array $params, $content, $smarty);
+
+    /**
+     * @param array $params
+     * @param Smarty $smarty
+     *
+     * @return string|null
+     */
+    public function end(array $params, $smarty);
 }
