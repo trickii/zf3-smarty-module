@@ -25,7 +25,7 @@ class CycleBlockProxy
         }
         if (!$this->plugin->isValid($params, $smarty)) {
             $repeat = false;
-            return $this->end($params, $smarty);
+            return $this->plugin->end($params, $smarty);
         }
         $repeat = true;
         return $this->plugin->prepareIteration($params, $content, $smarty);
