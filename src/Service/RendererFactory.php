@@ -5,6 +5,7 @@ use Zend\ServiceManager\Factory\FactoryInterface;
 use Interop\Container\ContainerInterface;
 use Smarty\View\Renderer;
 use Smarty;
+use Zend\View\HelperPluginManager;
 
 class RendererFactory implements FactoryInterface
 {
@@ -33,10 +34,14 @@ class RendererFactory implements FactoryInterface
             $engine->configLoad($config['config_file']);
         }
 
+        /** @var HelperPluginManager $helpers */
+        $helpers = $container->get('ViewHelperManager');
+
         $renderer = new Renderer();
         $renderer->setEngine($engine);
         $renderer->setSuffix($config['suffix']);
         $renderer->setResolver($resolver);
+        $renderer->setHelperPluginManager($helpers);
 
         return $renderer;
     }
