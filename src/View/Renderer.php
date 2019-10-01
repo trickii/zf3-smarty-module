@@ -61,19 +61,21 @@ class Renderer implements RendererInterface
     public function setResolver(ResolverInterface $resolver)
     {
         $this->resolver = $resolver;
+
         return $this;
     }
 
     /**
      * Processes a view script and returns the output.
      *
-     * @param  string|Model $nameOrModel Either the template to use, or a
-     *                                   ViewModel. The ViewModel must have the
-     *                                   template as an option in order to be
-     *                                   valid.
-     * @param  null|array|Traversable $values Values to use when rendering. If none
-     *                                provided, uses those in the composed
-     *                                variables container.
+     * @param string|Model           $nameOrModel Either the template to use, or a
+     *                                            ViewModel. The ViewModel must have the
+     *                                            template as an option in order to be
+     *                                            valid.
+     * @param null|array|Traversable $values      Values to use when rendering. If none
+     *                                            provided, uses those in the composed
+     *                                            variables container.
+     *
      * @return string The script output.
      * @throws Exception\DomainException if a ViewModel is passed, but does not
      *                                   contain a template option.
@@ -96,7 +98,7 @@ class Renderer implements RendererInterface
             unset($model);
         }
         if (!($file = $this->resolver->resolve($nameOrModel))) {
-            throw new RuntimeException(
+            throw new \RuntimeException(
                 sprintf(
                     'Unable to find template "%s"; resolver could not resolve to a file',
                     $nameOrModel
@@ -162,7 +164,7 @@ class Renderer implements RendererInterface
     {
         if (is_string($helper)) {
             if (!class_exists($helper)) {
-                throw new InvalidArgumentException(
+                throw new \InvalidArgumentException(
                     sprintf(
                         'Invalid helper helpers class provided (%s)',
                         $helper
@@ -172,7 +174,7 @@ class Renderer implements RendererInterface
             $helper = new $helper(new ServiceManager());
         }
         if (!$helper instanceof HelperPluginManager) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 sprintf(
                     'Helper helpers must extend Zend\View\HelperPluginManager; got type "%s" instead',
                     (is_object($helper) ? get_class($helper) : gettype($helper))
