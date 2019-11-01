@@ -2,13 +2,14 @@
 
 namespace Smarty\View;
 
+use ArrayObject;
+use RuntimeException;
+use Smarty;
+use Zend\View\Exception\DomainException;
 use Zend\View\HelperPluginManager;
+use Zend\View\Model\ModelInterface;
 use Zend\View\Renderer\RendererInterface;
 use Zend\View\Resolver\ResolverInterface;
-use Zend\View\Model\ModelInterface;
-use Zend\View\Exception\DomainException;
-use Smarty;
-use ArrayObject;
 
 class Renderer implements RendererInterface
 {
@@ -75,9 +76,9 @@ class Renderer implements RendererInterface
      *                                provided, uses those in the composed
      *                                variables container.
      * @return string The script output.
-     * @throws Exception\DomainException if a ViewModel is passed, but does not
+     * @throws DomainException if a ViewModel is passed, but does not
      *                                   contain a template option.
-     * @throws Exception\RuntimeException if the template cannot be rendered
+     * @throws RuntimeException if the template cannot be rendered
      */
     public function render($nameOrModel, $values = null)
     {
