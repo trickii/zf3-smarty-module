@@ -68,7 +68,7 @@ class Renderer implements RendererInterface
     /**
      * Processes a view script and returns the output.
      *
-     * @param  string|Model $nameOrModel Either the template to use, or a
+     * @param  string|ModelInterface $nameOrModel Either the template to use, or a
      *                                   ViewModel. The ViewModel must have the
      *                                   template as an option in order to be
      *                                   valid.
